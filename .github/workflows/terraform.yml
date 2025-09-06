@@ -1,13 +1,13 @@
-name: Terraform Azure
+name: Terraform
 
 on:
   push:
-    branches:
-      - main   # sirf main branch pe push hone par chalega
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - main   # PR main branch pe raise hone par chalega
-  workflow_dispatch:   # manually trigger karne ka option milega GitHub Actions tab pe
+
+permissions:
+  contents: read
+  id-token: write  # Needed for OIDC if used
 
 jobs:
   terraform:
@@ -17,17 +17,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Install Azure CLI (in case runner doesn’t have it already)
+      - name: Setup Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+          az version
+
+      # Login to Azure
       - name: Azure Login
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Terraform Init
         run: terraform init
 
       - name: Terraform Plan
         run: terraform plan -input=false
-
