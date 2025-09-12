@@ -10,8 +10,7 @@ on:
       - main
 jobs:
   build-deploy:
-    runs-on: 
-      labels: self-hosted, Linux, X64
+    runs-on: [self-hosted, Linux, X64]
 
     steps:
     - name: Checkout
