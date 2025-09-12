@@ -35,11 +35,11 @@ jobs:
 
       - name: terraformInit
         run: terraform init
-        working-directory: ./env/dev/
+        working-directory: ./env/dev
 
       - name: terraformPlan
         run: terraform plan
-        working-directory: ./env/dev/
+        working-directory: ./env/dev
 
    
   
