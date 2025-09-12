@@ -8,9 +8,13 @@ on:
   pull_request:
     branches: 
       - main
-      
+
+permissions: 
+ contents: read
+ id-token: write
+ 
 jobs:
-  build-deploy:
+  TerraformInstall:
     runs-on: self-hosted
     steps:
       - name: Checkout repo
@@ -26,10 +30,21 @@ jobs:
         with:
           terraform_version: 1.7.5
           
-
       - name: Verify TerraformVersion
         run: terraform -version
 
+      - name: terraformInit
+        run: terraform init
+        working-directory: env/dev/
+
+      - name: terraformPlan
+        run: terraform plan
+        working-directory: env/dev/
+
+   
+  
+ 
+  
         
           
             
