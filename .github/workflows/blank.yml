@@ -1,0 +1,25 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: self-host
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Example: Terraform Init
+      - name: Terraform Init
+        run: |
+          terraform init
+            -backend-config="container_name=tfstate" \
+            -backend-config="key=dev.terraform.tfstate"
