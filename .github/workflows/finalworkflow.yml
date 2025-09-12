@@ -27,7 +27,8 @@ jobs:
           version: 1.7.5
           
       - name: Verify TerraformVersion
-        uses: dflook/terraform-version@v1.29.1
+        uses: terraform -version
+        
         
           
             
