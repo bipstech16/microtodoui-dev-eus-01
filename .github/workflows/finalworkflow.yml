@@ -26,9 +26,10 @@ jobs:
         with:
           version: 1.7.5
           
+
       - name: Verify TerraformVersion
-        uses: terraform -version
-        
+        run: terraform -version
+
         
           
             
