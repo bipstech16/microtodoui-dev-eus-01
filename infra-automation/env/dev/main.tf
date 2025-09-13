@@ -1,27 +1,27 @@
-# module "rgs" {
-#   source              = "../../modules/rg-microtodoui-dev-eus-01"
-#   resource_group_name = "rg-microtodoui-dev-eus-01"
-#   location            = "East US"
-# }
+ module "rgs" {
+  source              = "../../modules/rg-microtodoui-dev-eus-01"
+  resource_group_name = "rg-microtodoui-dev-eus-01class"
+   location            = "East US"
+# } 
 
-# module "vnet" {
-#   depends_on          = [module.rgs]
-#   source              = "../../modules/vnet-microtodoui-dev-eus-01"
-#   name                = "vnet-microtodoui-dev-eus-01"
-#   location            = module.rgs.location
-#   address_space       = ["10.0.0.0/16"]
-#   resource_group_name = module.rgs.resource_group_name
+ module "vnet" {
+  depends_on          = [module.rgs]
+  source              = "../../modules/vnet-microtodoui-dev-eus-01"
+  name                = "vnet-microtodoui-dev-eus-01agw"
+  location            = module.rgs.location
+  address_space       = ["10.0.0.0/16"]
+  resource_group_name = module.rgs.resource_group_name
 
-# }
+ }
 
-# module "subnet" {
-#   depends_on           = [module.rgs, module.vnet]
-#   source               = "../../modules/snet-app-dev-eus-01"
-#   name                 = "snet-app-dev-eus-01"
-#   resource_group_name  = module.rgs.resource_group_name
-#   virtual_network_name = module.vnet.vnet_name
-#   address_prefixes     = ["10.0.1.0/24"]
-# }
+ module "subnet" {
+   depends_on           = [module.rgs, module.vnet]
+  source               = "../../modules/snet-app-dev-eus-01"
+   name                 = "snet-app-dev-eus-01"
+ resource_group_name  = module.rgs.resource_group_name
+   virtual_network_name = module.vnet.vnet_name
+   address_prefixes     = ["10.0.1.0/24"]
+}
 
 
 # module "stgacc" {
