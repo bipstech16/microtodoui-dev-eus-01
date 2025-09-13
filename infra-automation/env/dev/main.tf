@@ -2,7 +2,7 @@
   source              = "../../modules/rg-microtodoui-dev-eus-01"
   resource_group_name = "rg-microtodoui-dev-eus-01class"
    location            = "East US"
-# } 
+ } 
 
  module "vnet" {
   depends_on          = [module.rgs]
