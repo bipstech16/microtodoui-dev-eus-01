@@ -8,7 +8,11 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}
-  use_cli = false
+  features {
+resource_group {
+      prevent_deletion_if_contains_resources = true
+    }
+  }
+
   subscription_id = "c05900c4-9a99-417d-878e-413b907a6035"
 }
